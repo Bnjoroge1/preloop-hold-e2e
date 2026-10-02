@@ -1,0 +1,16 @@
+name: ci
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m py_compile mathlib.py
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: unit tests
+        run: python3 -c "from mathlib import add; assert add(2, 2) == 4, f'add(2, 2) returned {add(2, 2)}'"
+      - name: after tests
+        run: echo "job continued past the repaired step"
